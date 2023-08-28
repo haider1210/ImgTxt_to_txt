@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImgToText</title>
+    <style>
+      
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(80, 171, 223, 0.644), rgba(51, 241, 76, 0.747));
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover,
+button:focus {
+    background-color: #0056b3;
+    outline: none;
+}
+
+textarea {
+    margin-top: 20px;
+    color:white;
+    width: 96%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    border-radius: 5px;
+    resize: vertical;
+    background: black;
+}
+.copy-icon {
+         margin-top: -20px;
+          margin-left: 10px;
+          cursor: pointer;
+      }
+
+      /* Message for copied text */
+      .copied-message {
+          margin-left: 5px;
+          color: black;
+          font-size: 14px;
+          font-weight: bolder;
+          display: none;
+      }
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        width: 94%;
+        padding: 15px;
+    }
+}
+      /* Icon for copying text */
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Extract Text from Image</h2>
+        <form action="/extracttextfromimage" method="post" enctype="multipart/form-data">
+            <label for="image">Upload an image:</label>
+            <input type="file" name="file" accept="image/*" required id="image">
+            <button>Extract Text</button>
+        </form>
+
+        <div style="align-items: center;">
+            <h4>Copy the extracted text and paste in main console input for finding results</h4>
+            <span class="copy-icon" id="copyButton" onclick="copyText()">📋</span>
+            <span class="copied-message" id="copiedMessage">Copied!</span>
+            <textarea name="extractedText" cols="40" rows="20" id="extractedText"><%=data%></textarea>
+          
+            
+        </div>
+    </div>
+    <script>
+        function copyText() {
+            var textArea = document.getElementById("extractedText");
+            textArea.select();
+            document.execCommand("copy");
+            var copiedMessage = document.getElementById("copiedMessage");
+            copiedMessage.style.display = "inline";
+            setTimeout(function() {
+                copiedMessage.style.display = "none";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
